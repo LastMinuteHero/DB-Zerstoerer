@@ -9,12 +9,13 @@ import org.json.simple.JSONObject;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 
+//hier sollten wir alles zusammen gemacht haben, das solltet ihr glaub verstehen
 public class Json2Redis {
 	Jedis connection = null;
 	private int counter = 0;
 	
-	Json2Redis(Jedis cluster){
-		this.connection = cluster;
+	Json2Redis(Jedis connection){
+		this.connection = connection;
 	}
 
 	//	loads the complete business in to Redis with key as "business:"asdfasdf123:singleAttribute

@@ -56,6 +56,7 @@ public class SearchBar {
 	    
 	}
 	
+	//das ist der Listener, der dann auf Eingaben hört
 	public void addEditorListener(Jedis connection) {
 		SearchBarController sbControl = new SearchBarController(connection, cb, text);
 		
@@ -65,16 +66,24 @@ public class SearchBar {
 	    	}
 			@Override
 			public void keyPressed(KeyEvent arg0) {
+				//wenn enter gedrückt wird, dann namen suchen und in die combobox legen
 	            if (arg0.getKeyCode()==KeyEvent.VK_ENTER){
 	            	sbControl.findNames();
 	            }
+	            //wenn richtungstaste rechts gedrückt wird, dann attribute suchen
+            	if(arg0.getKeyCode()==39) {
+					sbControl.searchAttributes();
+				}
+	            
 			}
 			@Override
 			public void keyReleased(KeyEvent arg0) {
+
 			}
 	    });
 	}
 	
+	//das erstellt dann die GUI mit der connection
 	public void createGUI(Jedis connection) {
 		JFrame frame = new JFrame("Business Searcher");
 		SearchBar searchbar = new SearchBar();

@@ -16,6 +16,7 @@ import redis.clients.jedis.JedisCluster;
 
 public class JsonReader {
 	
+	//hier ist die business filepath
 	private static final String filePath = "/home/hjk/Documents/Uni/BigData/data/dataset/business.json";
 	
 	
@@ -30,8 +31,10 @@ public class JsonReader {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = null;
 			
+			//hier connecte ich auf redis ohne cluster
 			Jedis jedis = new Jedis("localhost");
-			//connecting to the Redis-cluster
+			
+			//hier werden die redis cluster angesprochen beachtet, dass aufm cluster die autovervollständigung nicht läuft
 	        Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30001));
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30002));
@@ -41,12 +44,25 @@ public class JsonReader {
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30006));
 			JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes);
 			
+			//Wenn das ganze als Cluster laufen soll, muss man als eingabe für die folgenden zwei konstruktoren
+			//als eingabe eine JedisCluster geben
+			//dann aber auch die Eingabe in der klasse Json2Redis und AutoComp abändern, ich weiß ist nicht schön
+			//aber es funktioniert ;)
+			
+			
+			//die folgenden zwei braucht man nur um die Daten einzuladen, ihr könnt auch die mehtode in autocomp in json2redis hauen
 			Json2Redis j2r = new Json2Redis(jedis);
 			AutoComp autocomp = new AutoComp(jedis);
-
+			
+			//hier wird die Searchbar classe generiert
 			SearchBar searchBar = new SearchBar();
 			
+			//hier wird die methode aufgerufen, die dann die GUI erstellt, die GUI braucht auch die connection, 
+			//da dort suchanfragen gestellt werden für die autovervolständigung
 			searchBar.createGUI(jedis);
+			
+			//hier werden die daten in die Datenbank eingeladen, ist bisl unschön evtl das als mehtode darstellen und dann
+			//die methode nur bei bedarf aufrufen
 			
 			//loads the Business in line for line
 //			String newLine=breader.readLine();

@@ -9,7 +9,8 @@ public class AutoComp {
 	AutoComp(Jedis jedis){
 		this.connection = jedis;
 	}
-	
+	//hier werden die alle namen als keys hinzugefügt dessen values die business ids sind die dessen namen tragen
+	//zB gibt es mehrere Starbucks
 	public void loadAutoCompName(JSONObject jsonObject) {
 		String name = jsonObject.get("name").toString();
 		String businessid = jsonObject.get("business_id").toString();
@@ -18,7 +19,7 @@ public class AutoComp {
 		if(connection.smembers(name).size()==1) {
 			System.out.println(name);
 		}
-		
+		//das ganze wird als set eingeladen
 		connection.sadd(name, businessid);
 		
 	}
