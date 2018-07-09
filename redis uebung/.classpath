@@ -2,9 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/hjk/Documents/Uni/NoSQL/redis/DB-Zerstoerer/redis uebung/json-simple-1.1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/home/hjk/Downloads/commons-pool2-2.5.0-bin/commons-pool2-2.5.0/commons-pool2-2.5.0.jar"/>
-	<classpathentry kind="lib" path="/home/hjk/Documents/Uni/NoSQL/redis/DB-Zerstoerer/redis uebung/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/_programs/java/git/DB-Zerstoerer/redis uebung/lib/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/_programs/java/git/DB-Zerstoerer/redis uebung/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

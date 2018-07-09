@@ -17,7 +17,7 @@ import redis.clients.jedis.JedisCluster;
 public class JsonReader {
 	
 	//hier ist die business filepath
-	private static final String filePath = "/home/hjk/Documents/Uni/BigData/data/dataset/business.json";
+	private static final String filePath = "C:\\data\\dataset\\business.json";
 	
 	
 	public static void main(String[] args) {
@@ -42,7 +42,7 @@ public class JsonReader {
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30004));
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30005));
 	        jedisClusterNodes.add(new HostAndPort("127.0.0.1", 30006));
-			JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes);
+			//JedisCluster jedisCluster = new JedisCluster(jedisClusterNodes);
 			
 			//Wenn das ganze als Cluster laufen soll, muss man als eingabe für die folgenden zwei konstruktoren
 			//als eingabe eine JedisCluster geben

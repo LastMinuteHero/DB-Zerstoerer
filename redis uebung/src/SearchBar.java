@@ -18,6 +18,8 @@ public class SearchBar {
 	private JFrame f;   
 	private JComboBox cb;
 	private JTextArea text;
+	private JTextField editor;
+	public SearchBarController control;
 	
 	public void setSearchBarElements(JFrame frame) {
 		
@@ -28,6 +30,8 @@ public class SearchBar {
         JButton button1 = new JButton("search Attributes");
 	    
 	    this.cb = new JComboBox();  
+	    this.editor = (JTextField) cb.getEditor().getEditorComponent();
+	    
 	    comboBoxPane.add(cb);
 	    cb.setEditable(true);
 	    cb.setBounds(50, 50,300,30);		
@@ -57,24 +61,21 @@ public class SearchBar {
 	}
 	
 	//das ist der Listener, der dann auf Eingaben hört
-	public void addEditorListener(Jedis connection) {
-		SearchBarController sbControl = new SearchBarController(connection, cb, text);
+	private void addEditorListener() {
 		
-		JTextField editor = (JTextField) cb.getEditor().getEditorComponent();
-	    editor.addKeyListener(new KeyListener() {
+	    this.editor.addKeyListener(new KeyListener() {
 	    	public void keyTyped(KeyEvent arg0) {
 	    	}
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				//wenn enter gedrückt wird, dann namen suchen und in die combobox legen
 	            if (arg0.getKeyCode()==KeyEvent.VK_ENTER){
-	            	sbControl.findNames();
+	            	SearchBar.this.findNames();
 	            }
 	            //wenn richtungstaste rechts gedrückt wird, dann attribute suchen
             	if(arg0.getKeyCode()==39) {
-					sbControl.searchAttributes();
+            		SearchBar.this.searchAttributes();
 				}
-	            
 			}
 			@Override
 			public void keyReleased(KeyEvent arg0) {
@@ -83,13 +84,27 @@ public class SearchBar {
 	    });
 	}
 	
+	protected void searchAttributes() {
+		control.searchAttributes();
+	}
+
+	protected void findNames() {
+		control.findNames();
+	}
+
 	//das erstellt dann die GUI mit der connection
 	public void createGUI(Jedis connection) {
 		JFrame frame = new JFrame("Business Searcher");
 		SearchBar searchbar = new SearchBar();
-		
 		searchbar.setSearchBarElements(frame);
-		searchbar.addEditorListener(connection);
+		searchbar.control = new SearchBarController(connection);
+		
+		searchbar.control.setComboBox(searchbar.cb);
+		searchbar.control.setTextArea(searchbar.text);
+		searchbar.control.setEditor(searchbar.editor);
+		
+		
+		searchbar.addEditorListener();
 	}
 	
 	

@@ -14,23 +14,20 @@ public class SearchBarController {
 	String[] businesses;
 	JComboBox cb;
 	JTextArea text;
+	JTextField editor;
 	
 	//konstruktor für den Controller, hier werden die Teile der UI mitgegeben, die kontrolliert werden sollen
 	//und auch die connection, da hier anfragen gestellt werden
-	SearchBarController(Jedis connector, JComboBox comboBox, JTextArea textArea){
+	SearchBarController(Jedis connector){
 		this.connection = connector;
-		this.cb = comboBox;
-		this.text = textArea;
-
 	}
+	
 	
 	//diese methode sucht nach den keys, daher wurden in AutoComp die namen als keys abgespeichert
 	//dann werden die Namen die gefunden werden in die combobox gestellt
 	public void findNames() {
-		//hier wird der editor extrahiert
-		JTextField editor = (JTextField) cb.getEditor().getEditorComponent();
 		//hier setzt er die Suche mit dem Stern am ende für die patternsuche
-		String searchTerm = editor.getText()+"*";
+		String searchTerm = this.editor.getText()+"*";
 		//hier sucht man in redis nach den keys zB keys Starbu*
 		names = connection.keys(searchTerm).toArray(new String[connection.keys(searchTerm).size()]);
 		//die Ergebnisse werden in die combobox gesetzt
@@ -60,5 +57,20 @@ public class SearchBarController {
     	Set<String> output = connection.sunion(attributesSearchTerm);
     	System.out.println(output);
     	text.setText(output.toString());
+	}
+	
+	public void setComboBox(JComboBox comboBox){
+		this.cb = comboBox;		
+	}
+	
+	public void setTextArea(JTextArea text){
+		this.text = text;
+	}
+	
+	public void setEditor(JTextField text){
+
+		//hier wird der editor extrahiert
+		this.editor = (JTextField) cb.getEditor().getEditorComponent();
+
 	}
 }
